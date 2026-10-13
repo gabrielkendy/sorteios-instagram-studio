@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f1016" />
+  <meta name="description" content="NOME_DA_SUA_MARCA Sorteios Pro. Sorteios do Instagram com transparência e arte automática do ganhador." />
+  <title>NOME_DA_SUA_MARCA | Painel de Sorteios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="app-shell">
+  <header class="topbar">
+    <div class="brand-lockup">
+      <div class="brand-symbol" aria-hidden="true"><img src="/api/brand-logo" onerror="this.src='/assets/logo-fallback.svg'" alt="" /></div>
+      <div class="brand-wordmark"><strong>MARCA</strong><small>SORTEIOS STUDIO</small></div>
+      <span class="topbar-divider"></span><span class="topbar-eyebrow">PAINEL DE CAMPANHAS</span>
+    </div>
+    <div class="topbar-right"><span class="status-pill"><span class="status-dot"></span><span id="connectionStatus">Verificando conexão</span></span><button type="button" id="helpButton" class="ghost top-help">COMO USAR <span>↗</span></button></div>
+  </header>
+
+  <main class="main-content">
+    <div class="hero-header">
+      <div><div class="eyebrow"><span class="tiny-line"></span> STUDIO DE SORTEIOS <span class="tiny-sep">/</span> 2026</div>
+        <h1>O próximo ganhador<br><em>merece esse momento.</em></h1>
+        <p>Importe comentários, sorteie de forma aleatória e crie a arte oficial da sua marca em poucos cliques.</p>
+      </div>
+      <div class="hero-figure" aria-hidden="true"><span class="thin-orbit orbit-1"></span><span class="thin-orbit orbit-2"></span><span class="hero-star">✳</span></div>
+    </div>
+
+    <section class="summary-bar" aria-label="Resumo da sessão">
+      <div class="summary-item"><span class="summary-kicker">COMENTÁRIOS IMPORTADOS</span><div class="summary-number" id="countImported">00</div></div>
+      <div class="summary-item"><span class="summary-kicker">PERFIS ELEGÍVEIS</span><div class="summary-number" id="countEligible">00</div></div>
+      <div class="summary-item"><span class="summary-kicker">RESULTADO</span><div class="summary-result" id="statusResult"><i></i> Aguardando sorteio</div></div>
+      <div class="summary-decoration"><span>01 / 01</span><div class="deco-bar"></div><small>UM GANHADOR</small></div>
+    </section>
+
+    <div class="workspace">
+      <div class="control-column">
+        <section class="panel panel-input">
+          <div class="panel-heading"><div class="step-num">01</div><div><div class="section-eyebrow">ORIGEM DOS DADOS</div><h2>Carregar participantes</h2></div><span class="step-label">ETAPA 01 / 03</span></div>
+          <div class="switcher" role="tablist" aria-label="Método de importação"><button id="modeUrl" class="switcher-btn active" role="tab" aria-selected="true">COLAR LINK DO INSTAGRAM</button><button id="modeCsv" class="switcher-btn" role="tab" aria-selected="false">IMPORTAR CSV</button></div>
+          <div id="urlBox" class="mode-box">
+            <label for="postUrl">LINK DA PUBLICAÇÃO OU REEL</label>
+            <div class="input-inline"><span class="input-prefix">↗</span><input id="postUrl" type="url" placeholder="https://www.instagram.com/p/..." autocomplete="off" spellcheck="false" /></div>
+            <div class="url-footer"><div class="mini-note">Posts/Reels públicos · integração Apify após configuração única.</div><button type="button" class="text-button" id="openToken">CONFIGURAR API <span>↗</span></button></div>
+            <div class="post-card hidden" id="postCard">
+              <div class="post-card-media"><img id="postThumb" alt="Prévia da publicação" /><span class="post-card-badge hidden" id="postVideoBadge">REEL</span></div>
+              <div class="post-card-body">
+                <div class="post-card-top"><span class="post-card-pill" id="postPill">PUBLICAÇÃO</span><span class="post-card-count" id="postCount">—</span></div>
+                <p class="post-card-caption" id="postCaption">—</p>
+                <div class="post-card-actions"><a id="postOpen" class="text-button" target="_blank" rel="noreferrer noopener" href="#">ABRIR NO INSTAGRAM ↗</a><button type="button" class="text-button" id="postRetry">RECARREGAR A CAPA ↻</button></div>
+              </div>
+            </div>
+            <div class="post-card-error hidden" id="postCardError"></div>
+            <div class="limit-row"><label for="maxComments">LIMITE DA IMPORTAÇÃO</label><select id="maxComments"><option value="1000">Até 1.000 comentários</option><option value="5000" selected>Até 5.000 comentários</option><option value="10000">Até 10.000 comentários</option><option value="20000">Até 20.000 comentários</option></select></div>
+            <label class="check-import"><input id="includeReplies" type="checkbox" /> Incluir respostas aos comentários <span>(recurso pago da Apify)</span></label>
+            <button type="button" id="importUrl" class="btn btn-primary"><span>IMPORTAR COMENTÁRIOS</span><span class="btn-arrow">→</span></button>
+            <button type="button" class="text-button demo-btn" id="demoButton">TESTAR O PAINEL COM DADOS FICTÍCIOS ↗</button>
+          </div>
+          <div id="csvBox" class="mode-box hidden">
+            <label for="csvInput">ARQUIVO DE COMENTÁRIOS</label>
+            <label for="csvInput" class="dropzone" id="dropzone"><span class="drop-shape">↥</span><strong>Arraste o CSV, TXT ou JSON aqui</strong><span>ou clique para selecionar · até 15 MB</span></label>
+            <input type="file" id="csvInput" accept=".csv,.tsv,.txt,.json,application/json,text/csv" hidden />
+            <div class="mini-note csv-note">Aceita CSV/JSON dos comentários ou <strong>1 perfil por linha</strong> em TXT. Não exige API.</div>
+          </div>
+          <div class="message-banner hidden" id="importNotice" role="status"></div>
+          <div class="data-insight hidden" id="dataInsight"><div><div class="insight-overline">BASE CARREGADA</div><strong id="sourceLabel">—</strong><span id="importMeta">—</span></div><button class="subtle-button" id="downloadParticipants" type="button">BAIXAR CSV ↗</button></div>
+          <div class="api-progress hidden" id="apiProgress"><div class="api-progress-top"><span class="spinner"></span><strong id="progressLabel">Importando comentários...</strong></div><p>Dependendo da quantidade, pode levar alguns minutos. Mantenha esta aba aberta.</p><div class="progress-line"><span></span></div></div>
+        </section>
+
+        <section class="panel panel-rules">
+          <div class="panel-heading"><div class="step-num">02</div><div><div class="section-eyebrow">CONFIGURAÇÃO DO SORTEIO</div><h2>Definir regras</h2></div><span class="step-label">ETAPA 02 / 03</span></div>
+          <div class="form-grid">
+            <div class="form-control full"><label for="prizeName">PRÊMIO DO SORTEIO</label><input id="prizeName" value="KIT ESPECIAL" maxlength="95" type="text" placeholder="Ex.: Kit especial da marca" /></div>
+            <div class="form-control"><label for="keyword">PALAVRA OBRIGATÓRIA <small>(OPCIONAL)</small></label><input id="keyword" type="text" placeholder="Ex.: eu quero" maxlength="80" /></div>
+            <div class="form-control"><label for="minMentions">MÍNIMO DE @MENÇÕES</label><select id="minMentions"><option value="0">Sem exigência</option><option value="1">1 menção</option><option value="2">2 menções</option><option value="3">3 menções</option><option value="4">4 menções</option></select></div>
+            <div class="form-control full"><label for="excludedHandles">PERFIS EXCLUÍDOS <small>(SEPARAR POR VÍRGULAS)</small></label><input id="excludedHandles" type="text" autocomplete="off" placeholder="@@suamarca, @equipe..." maxlength="500" /></div>
+          </div>
+          <div class="option-row"><div><strong>Um cupom por perfil</strong><p>Comentários repetidos do mesmo perfil valem uma única participação.</p></div><label class="toggle"><input id="dedupeUsers" type="checkbox" checked /><span class="toggle-track"></span><span class="sr-only">Um cupom por perfil</span></label></div>
+          <div class="option-row last-option"><div><strong>Considerar apenas comentários principais</strong><p>Desconsidera respostas a outros comentários, quando identificadas.</p></div><label class="toggle"><input id="topLevelOnly" type="checkbox" /><span class="toggle-track"></span><span class="sr-only">Somente comentários principais</span></label></div>
+          <div class="option-row last-option"><div><strong>Quantidade de ganhadores</strong><p>Escolha quantos vencedores o sorteio vai revelar na roleta.</p></div><div class="stepper" id="winnerStepper"><button type="button" id="wqMenos" class="stepper-btn" aria-label="Menos um ganhador">−</button><input id="winnerQty" type="number" value="1" min="1" max="50" inputmode="numeric" aria-label="Quantidade de ganhadores" /><button type="button" id="wqMais" class="stepper-btn" aria-label="Mais um ganhador">+</button></div></div>
+          <div class="rules-summary"><span>PARTICIPANTES APÓS OS FILTROS</span><strong id="liveEligible">—</strong><button type="button" class="text-button" id="seeEligible">VISUALIZAR ↗</button></div>
+        </section>
+
+        <section class="panel panel-draw">
+          <div class="panel-heading"><div class="step-num step-green">03</div><div><div class="section-eyebrow">RESULTADO OFICIAL</div><h2>Realizar sorteio</h2></div><span class="step-label">ETAPA 03 / 03</span></div>
+          <div id="limitWarning" class="limit-warning hidden"><strong>Atenção: verifique a cobertura da coleta.</strong><p>Você atingiu o limite escolhido ou há indícios de coleta parcial. Compare com o Instagram antes de sortear.</p><label><input type="checkbox" id="confirmLimit" /> Confirmei a cobertura da lista e aceito realizar o sorteio.</label></div>
+          <div class="draw-brief"><div><span>PROCESSO</span><strong>Sorteio aleatório criptográfico</strong></div><div><span>PREMIAÇÃO</span><strong id="drawBriefQty">1 vencedor</strong></div></div>
+          <button type="button" class="btn btn-draw" id="drawButton" disabled><span class="btn-disc">✳</span><span id="drawLabel">SORTEAR 1 GANHADOR</span><span class="btn-arrow">↗</span></button>
+          <button type="button" class="btn btn-roleta hidden" id="spinButton"><span class="btn-disc">◎</span><span id="spinLabel">ABRIR A ROLETA</span><span class="btn-arrow">↗</span></button>
+          <div class="draw-footnote" id="drawFootnote">Importe os participantes reais para habilitar o sorteio.</div>
+          <div id="winnerBox" class="winner-box hidden"><div class="winner-mini-avatar" id="winnerInitials">N</div><div class="winner-mini-content"><small>GANHADOR(A) SELECIONADO(A)</small><strong id="winnerHandle">@ganhador</strong><a id="winnerProfile" target="_blank" rel="noreferrer noopener">ABRIR PERFIL ↗</a></div><span class="winner-badge">VENCEDOR</span></div>
+          <div class="draw-actions"><button type="button" id="downloadProof" class="action-secondary" disabled>BAIXAR COMPROVANTE JSON ↗</button><button type="button" id="resetDraw" class="action-secondary" disabled>NOVO SORTEIO ↺</button></div>
+        </section>
+      </div>
+
+      <aside class="preview-column">
+        <section class="preview-panel">
+          <div class="preview-heading"><div><div class="section-eyebrow">DIREÇÃO DE ARTE AUTOMÁTICA</div><h2>Arte do ganhador<span class="preview-period">.</span></h2></div><span class="preview-tag">ARTE OFICIAL</span></div>
+          <div class="format-selector" role="group" aria-label="Formato da arte"><button id="formatStory" type="button" class="format-btn active" aria-pressed="true">STORY <span>9:16</span></button><button id="formatFeed" type="button" class="format-btn" aria-pressed="false">FEED <span>4:5</span></button></div>
+          <div class="canvas-frame"><canvas id="posterCanvas" width="540" height="960" aria-label="Prévia da arte do ganhador"></canvas><span class="canvas-gloss" aria-hidden="true"></span></div>
+          <div class="poster-note"><span class="live-dot"></span><span id="posterState">PRÉVIA · GANHADOR AINDA NÃO DEFINIDO</span></div>
+          <button class="btn btn-export" id="exportPoster" type="button" disabled>BAIXAR ARTE EM PNG <span>↓</span></button>
+          <div class="preview-secondary"><button class="text-button" type="button" id="uploadLogo">TROCAR LOGO DA MARCA ↗</button><input type="file" id="logoInput" accept="image/png,image/webp,image/jpeg,image/svg+xml" hidden /><span>1080 PX · ALTA RESOLUÇÃO</span></div>
+        </section>
+        <div class="trust-card"><span class="trust-circle">✓</span><div><strong>Integridade em primeiro lugar.</strong><p>O painel registra regras, hora, participantes elegíveis e índice sorteado. Confira a base completa antes de divulgar o resultado. O comprovante não substitui auditoria independente.</p></div></div>
+      </aside>
+    </div>
+    <footer class="page-footer"><span>NOME_DA_SUA_MARCA SORTEIOS STUDIO <span class="footer-divider">/</span> FERRAMENTA DE CAMPANHAS</span><span>CRIADO PARA SORTEIOS COM TRANSPARÊNCIA <strong>© 2026</strong></span></footer>
+  </main>
+</div>
+
+<dialog id="tokenDialog" class="modal"><form method="dialog" class="modal-inner"><button type="submit" class="modal-close" aria-label="Fechar">×</button><div class="modal-kicker">INTEGRAÇÃO AUTOMÁTICA</div><h2>Conectar a Apify</h2><p>Para importar apenas colando o link, use o token pessoal da sua conta Apify. Ele fica somente nesta sessão do navegador e não é salvo no projeto.</p><label for="tokenInput">TOKEN DA API APIFY</label><input id="tokenInput" type="password" placeholder="apify_api_..." autocomplete="off" /><div class="modal-hint">Obtenha seu token em <a href="https://console.apify.com/account/integrations" target="_blank" rel="noreferrer">console.apify.com → API &amp; Integrations ↗</a></div><button type="button" id="saveToken" class="btn btn-primary"><span>SALVAR NESTA SESSÃO</span><span>→</span></button><div class="modal-warning">A Apify pode cobrar pela extração de comentários. Confira o valor antes de executar. Evite usar o painel publicamente sem proteção por senha.</div></form></dialog>
+<dialog id="helpDialog" class="modal"><div class="modal-inner"><button type="button" class="modal-close" id="closeHelp" aria-label="Fechar">×</button><div class="modal-kicker">GUIA RÁPIDO</div><h2>Como usar o painel</h2><ol class="help-list"><li><b>Importar.</b> Cole o link do post/reel e configure a API Apify, ou carregue o CSV com os comentários.</li><li><b>Filtrar.</b> Informe o prêmio e as regras divulgadas aos participantes.</li><li><b>Sortear.</b> Clique uma vez. Cada perfil terá a mesma chance se a opção de cupom único estiver ativada.</li><li><b>Publicar.</b> Baixe o comprovante e a arte pronta para Story ou Feed.</li></ol><p class="modal-warning">A captura não garante 100% de comentários se o Instagram limitar o acesso. A ferramenta não valida seguidores, curtidas ou marcações reais em perfis privados. Confirme manualmente as exigências do regulamento.</p><button type="button" class="btn btn-primary" id="closeHelpOk"><span>ENTENDI, VAMOS COMEÇAR</span><span>→</span></button></div></dialog>
+<dialog id="eligibleDialog" class="modal modal-list"><div class="modal-inner"><button class="modal-close" type="button" id="closeEligible">×</button><div class="modal-kicker">AUDITORIA DA BASE</div><h2>Perfis elegíveis</h2><p id="eligibleMessage">Os participantes aprovados pelos filtros aparecerão aqui.</p><div class="eligible-list" id="eligibleList"></div></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="js/app.js"></script>
+<script src="js/roleta.js"></script>
+</body>
+</html>

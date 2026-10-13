@@ -1,0 +1,51 @@
+# ---- SEGREDOS (nunca versionar) ----
+.env
+.env.*
+!.env.example
+capa_url.txt
+*.token
+*apify*.txt
+
+# ---- DADOS DE TERCEIROS (LGPD) ----
+# Avatares reais de participantes de sorteios reais.
+# NUNCA subir: sao fotos de pessoas reais.
+public/fotos/
+# Base de comentarios coletada de post real (contem @handles de pessoas).
+gravacao/*.csv
+gravacao/base-real.csv
+gravacao/arte-base.csv
+*.csv.tmp
+
+# ---- SAIDA DE GRAVACAO (pesado: videos e quadros) ----
+# Toda a pasta de gravacao e saida local: videos, quadros, bruto, testes.
+# So o que interessa ao projeto (nada) fica versionado.
+gravacao/
+cache/
+
+# ---- BACKUPS E LIXO ----
+*.bak
+*.bak-*
+*.old
+*~
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- DEPENDENCIAS ----
+node_modules/
+package-lock.json
+yarn.lock
+
+# ---- LOGS ----
+*.log
+npm-debug.log*
+
+# ---- API RESPONSES CRUAS (payload de terceiros) ----
+ds_*.json
+ig.html
+capa_teste.jpg
+.jobid
+
+# ---- MATERIAL DO CLIENTE (nunca versionar) ----
+_CLIENTE-NAO-SOBE/

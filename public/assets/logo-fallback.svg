@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 610 425">
+  <defs>
+    <linearGradient id="p" x1=".15" x2=".9" y1="0" y2="1">
+      <stop stop-color="#e65894" offset="0"/><stop stop-color="#9c004d" offset=".22"/><stop stop-color="#5d1239" offset=".78"/><stop stop-color="#7c003b" offset="1"/>
+    </linearGradient>
+    <radialGradient id="g"><stop stop-color="#caff66"/><stop offset=".62" stop-color="#a5ef00"/><stop offset="1" stop-color="#59a900"/></radialGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#1b0010" flood-opacity=".45"/></filter>
+  </defs>
+  <g filter="url(#sh)">
+    <path d="M 65 115 C 110 22 216 9 298 48 C 331 65 349 69 363 53 C 378 38 365 16 349 10 C 430 11 515 57 550 130 C 579 184 568 292 520 347 C 469 409 316 430 190 396 C 76 365 14 314 12 235 C 11 185 28 142 65 115Z" fill="url(#p)" stroke="#c94478" stroke-width="7"/>
+    <path d="M60 182 C105 70 220 30 306 79" stroke="#ffffff" stroke-opacity=".23" stroke-width="19" stroke-linecap="round" fill="none"/>
+    <circle cx="548" cy="150" r="56" fill="url(#g)" stroke="#71b900" stroke-width="6"/>
+    <circle cx="533" cy="128" r="21" fill="#e7ffad" opacity=".34"/>
+    <text x="296" y="293" fill="#fff" font-size="120" font-family="Arial,Helvetica,sans-serif" font-weight="800" text-anchor="middle" letter-spacing="-6">Nechio</text>
+  </g>
+</svg>
